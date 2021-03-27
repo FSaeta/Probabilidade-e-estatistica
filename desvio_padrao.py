@@ -42,10 +42,7 @@ def soma(*args):
 	return soma
 
 def soma2(*args):
-	new_x = []
-	for x in args[0]:
-		x_2 = x**2
-		new_x.append(x_2)
+	new_x = [x**2 for x in args[0]]
 	return soma(new_x)
 
 def calc_xini(indx, nums):

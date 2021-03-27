@@ -10,13 +10,13 @@ TIPOS DE EXERCÍCIO:
 -----------------------------------------
 """
 
-def calc_media(nums):
+def calc_media_simples(nums):
 	cont = 0
 	soma = 0
 	for num in nums:
 		cont +=1
 		soma += num
-	media = soma/cont
+	media = round(soma/cont, 2)
 	string = f"Media = {soma}/{cont} = {media}"
 	print(string)
 	return media
@@ -28,13 +28,13 @@ def calc_mediana(nums):
 	if len_nums%2 == 0:
 		indice1 = int((len_nums+1)/2)
 		indice2 = indice1+1
-		mediana = (nums[indice1-1]+nums[indice2-1])/2
-		string = f"mediana = ({nums[indice1-1]} + {nums[indice2-1]}) / 2  =  {mediana}"
+		mediana = round((nums[indice1-1]+nums[indice2-1])/2, 2)
+		string = f"Mediana = ({nums[indice1-1]} + {nums[indice2-1]}) / 2  =  {mediana}"
 		print(string)
 	else:
 		indice = int((len_nums+1)/2)
 		mediana = nums[indice-1]
-		string = f"mediana = {nums[indice-1]}"
+		string = f"Mediana = {nums[indice-1]}"
 		print(string) 
 	return mediana
 
@@ -91,7 +91,7 @@ if __name__ == '__main__':
 			print("")
 	numeros = [0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4]
 
-	media = calc_media(nums)
+	media = calc_media_simples(nums)
 	mediana = calc_mediana(nums)
 	moda = calc_moda(nums)
 

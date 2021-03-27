@@ -128,7 +128,7 @@ def run_simples():
 	#numeros = [22.0, 29.0, 33.0, 35.0, 35.0, 37.0, 38.0, 43.0, 43.0, 44.0, 48.0, 48.0, 52.0, 53.0, 55.0, 57.0, 61.0, 62.0, 67.0, 69.0]
 	numeros = [6.9, 6.9, 7.0, 7.1, 7.2, 7.2, 7.2, 7.3, 7.3, 7.3, 7.3, 7.4, 7.4, 7.4, 7.4, 7.4, 7.4, 7.4, 7.5, 7.5, 7.5, 7.5, 7.5, 7.5, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.7, 7.7, 7.7, 7.8, 7.9, 8.1, 8.1, 8.1, 8.2, 8.2]
 	numeros.sort()
-	media = mmm.calc_media(numeros)
+	media = mmm.calc_media_simples(numeros)
 	mediana = mmm.calc_mediana(numeros)
 	moda = mmm.calc_moda(numeros)
 	
