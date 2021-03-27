@@ -3,6 +3,8 @@ from menu import R,G,Y,C,W
 import sys
 from math import sqrt
 
+import basic_funcs as BF
+
 
 msg_menu_inicial = f"""{G}BEM VINDO AO PROGRAMA DE DESVIO PADRÃO{W}
 
@@ -216,22 +218,11 @@ def muda_pede():
 	global pede
 	pede = not pede
 
-def pede_numeros():
-	numeros = []
-	pede = True
-	while pede:
-		try:
-			numero = float(input("numero: "))
-			numeros.append(numero)
-		except KeyboardInterrupt:
-			pede = False
-			return numeros
-
 # -----------------------------------
 
 def run_simples_amostra():
 
-	numeros = pede_numeros()
+	numeros = BF.pede_numeros()
 	values = computar_dados(numeros)
 	
 	print(f"\n{C} ------  GRÁFICO  ------{W}")
@@ -246,7 +237,7 @@ def run_simples_amostra():
 
 def run_grupo_amostra():
 
-	numeros = pede_numeros()
+	numeros = BF.pede_numeros()
 	values = computar_dados_grup(numeros)
 
 	print(f"\n{C} ------  GRÁFICO  ------{W}")
@@ -262,7 +253,7 @@ def run_grupo_amostra():
 
 def run_grupo_class_amostra():
 
-	numeros = pede_numeros()		
+	numeros = BF.pede_numeros()		
 	values = computar_dados_grup_classe(numeros)
 
 	print(f"\n{C} ------  GRÁFICO  ------{W}")

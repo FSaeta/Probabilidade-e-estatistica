@@ -1,4 +1,5 @@
 import menu
+import basic_funcs as BF
 from menu import R,G,Y,C,W
 
 menu = f"""-----------------------------------------
@@ -79,17 +80,9 @@ if __name__ == '__main__':
 			print(f"{R}!!! Opção Inválida !!!\nDigite novamente{W}")
 
 	pede = True
-	nums = []
-	while pede:
-		try:
-			num = int(input("numero: "))
-			nums.append(num)
-		except ValueError:
-			print("Numero Inválido !")
-		except KeyboardInterrupt:
-			pede = False
-			print("")
-	numeros = [0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4]
+	nums = BF.pede_numeros()
+	
+	# nums = [0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4]
 
 	media = calc_media_simples(nums)
 	mediana = calc_mediana(nums)
