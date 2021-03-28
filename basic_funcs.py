@@ -18,4 +18,5 @@ def pede_numeros():
             pede = False
             return numeros
 
-pede_numeros()
+if __name__ == '__main__':
+    pede_numeros()

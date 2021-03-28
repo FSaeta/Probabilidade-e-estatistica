@@ -167,9 +167,9 @@ def run_classe():
 	print(f"Assimetria : {assimetria}")
 	print(f"Curtose : {curtose}")
 	
-
-#run_simples()
-run_classe()
+if __name__ == '__main__':
+	run_simples()
+	run_classe()
 
 menu_inicial = menu.Menu(nome="Inicial", id=0, msg=msg_menu_inicial, 
 						 op_dict={0:[(sys.exit,[])], 

@@ -9,12 +9,20 @@ from os import system, name
 def limpar_tela():
 	system('cls' if name == 'nt' else 'clear')
 
+def muda_msg_contexto(menus, id, id_pai):
+	menu = menus[id]
+	menu_id = str(id_pai)
+	if len(str(id_pai)) != 1:
+		new_contexto = menus[id_pai].contexto['msg'] + ">" + menu.nome
+		menu.contexto.update({'msg': f"{G}{new_contexto}{W}"})
+
 class Menu:
 	def __init__(self, nome, id, msg, op_dict):
 		self.nome = nome
 		self.msg = msg
 		self.opcoes = op_dict
 		self.funcoes_params = self.get_funcoes_params()
+		self.contexto = {'msg': f"{G}-> {self.nome}{W}"}
 
 	def get_funcoes_params(self):
 		funcoes_parametros = {}
@@ -40,3 +48,8 @@ class Menu:
 		op_permitidas = list(self.opcoes.keys())
 		if opcao not in op_permitidas:
 			raise ValueError
+	
+	def mostrar_msg(self):
+		if self.contexto['msg']:
+			print(self.contexto['msg'])
+		print(self.msg)
