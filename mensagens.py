@@ -32,6 +32,13 @@ montagem_geral = f"""
 {Y}[2]{W} Com Gráfico
 """
 
+executar = f"""
+{Y}[1]{W} EXECUTAR
+
+{Y}[0]{W} VOLTAR
+"""
+
+
 print(bem_vindo)
 if __name__ == '__main__':
     print(opcoes)
