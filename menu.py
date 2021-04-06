@@ -9,12 +9,16 @@ from os import system, name
 def limpar_tela():
 	system('cls' if name == 'nt' else 'clear')
 
-def muda_msg_contexto(menus, id, id_pai):
+def define_contexto(menus, id, id_pai):
 	menu = menus[id]
 	menu_id = str(id_pai)
-	if len(str(id_pai)) != 1:
-		new_contexto = menus[id_pai].contexto['msg'] + ">" + menu.nome
-		menu.contexto.update({'msg': f"{G}{new_contexto}{W}"})
+	if str(id_pai) != '0':
+		new_contexto = menus[id_pai].contexto['msg'] + " > " + menu.nome
+		menu.contexto.update({
+			'msg': f"{G}{new_contexto}{W}",
+			'id_pai': id_pai
+		})
+
 
 class Menu:
 	def __init__(self, nome, id, msg, op_dict):
@@ -22,7 +26,7 @@ class Menu:
 		self.msg = msg
 		self.opcoes = op_dict
 		self.funcoes_params = self.get_funcoes_params()
-		self.contexto = {'msg': f"{G}-> {self.nome}{W}"}
+		self.contexto = {'msg': f"{G}-> {self.nome}{W}", 'id_pai': 0}
 
 	def get_funcoes_params(self):
 		funcoes_parametros = {}
@@ -35,6 +39,7 @@ class Menu:
 		return funcoes_parametros
 
 	def exec_funcs(self, opcao):
+		"""Executa todas as funções que o menu possui para a opção escolhida"""
 		ret = {}
 		for funcao, params in self.funcoes_params[opcao]:
 			if len(params) != 0:
@@ -43,8 +48,18 @@ class Menu:
 				ret_f = funcao()
 			ret.update({funcao.__name__: ret_f})
 		return ret
+	
+	def add_funcs(self, opcao, funcao, param):
+		"""Adicionar funções em tempo de execução ou em partes do 
+		código após a declaração do menu
+
+		- Formato de exemplo: menu.add_funcs(1, limpar_tela, [])"""
+
+		funcao_parametro = (funcao,param)
+		self.opcoes.update({opcao, funcao_parametro})
 		
 	def valida_opcao(self, opcao):
+		"""Valida a opção escolhida com as opções disponíveis no op_dict"""
 		op_permitidas = list(self.opcoes.keys())
 		if opcao not in op_permitidas:
 			raise ValueError
