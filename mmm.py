@@ -10,6 +10,17 @@ TIPOS DE EXERCÍCIO:
 {Y}[0]{W} Sair
 -----------------------------------------
 """
+def calc_mmm_simples(nums):
+	"""Função para calculo de dados não agrupados"""
+
+	print(f"{C}---- Calculando média ----{W}")
+	media = calc_media_simples(nums)
+	print(f"{C}---- Calculando mediana ----{W}")
+	mediana = calc_mediana(nums)
+	print(f"{C}---- Calculando moda ----{W}")
+	moda = calc_moda(nums)
+
+	return {'media': media, 'mediana': mediana ,'moda': moda}
 
 def calc_media_simples(nums):
 	cont = 0
@@ -45,6 +56,7 @@ def calc_moda(nums):
 		cont = nums.count(num)
 		dicionario.update({num: cont})
 	valores_dict = list(dicionario.values())
+	print(f"Moda dict = {dicionario}")
 	maior = max(valores_dict)
 	maiores = []
 	for k, v in dicionario.items():
@@ -52,7 +64,7 @@ def calc_moda(nums):
 			maiores.append(k)
 	return maiores
 
-def calc_moda_classe(values):
+def calc_moda_classe(values=False):
 	print("__________________\nSolicitação da moda para classe:")
 	li = float(input("Digite o li: "))
 	h = float(input("Digite o h: "))
@@ -61,7 +73,7 @@ def calc_moda_classe(values):
 	moda = li + (d1/(d1+d2)*h)
 	return moda
 
-def calc_mediana_classe(values):
+def calc_mediana_classe(values=False):
 	print("__________________\nSolicitação da mediana para classe:")
 	li = float(input("Digite o li: "))
 	h = float(input("Digite o h: "))
@@ -76,6 +88,8 @@ if __name__ == '__main__':
 	while pede:
 		try:
 			op = int(input("Digite o tipo de exercício: "))
+		except KeyboardInterrupt as e:
+			pede = False
 		except Exception as e:
 			print(f"{R}!!! Opção Inválida !!!\nDigite novamente{W}")
 
