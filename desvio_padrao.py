@@ -60,70 +60,104 @@ def calc_xini(indx, nums):
 # -------------------------
 def computar_dados(numeros):
 	N = len(numeros)
-	soma_xi = round(soma(numeros),2)
-	soma_xi2 = round(soma2(numeros),2)
-	media = round(soma_xi / N, 2)
+
+	print(f"{C}---- Calculando as somas ----{W}")
+	soma_ni = round(soma(numeros),2)
+	soma_ni2 = round(soma2(numeros),2)
+	print(f"Soma Ni =  {soma_ni}")
+	print(f"Soma Ni² =  {soma_ni2}")
+
+	print(f"{C}---- Calculando média ----{W}")
+	media = round(soma_ni / N, 2)
 	x_2 = round(media**2, 2)
-	s2 = round((soma_xi2 - N * x_2) / (N-1), 2)
+	print(f"Média =  {soma_ni} / {N}")
+	print(f"Média² =  {x_2}")
+
+	print(f"{C}---- Calculando Desvio Padrão ----{W}")
+	s2 = round((soma_ni2 - N * x_2) / (N-1), 2)
 	s = round(sqrt(s2), 2)
-	values = {'numeros': numeros, 'N': N, 'soma_xi': soma_xi, 'soma_xi2': soma_xi2, 'media': media, 'x_2': x_2, 's2': s2, 's': s}
+	print(f"s² =  ({soma_ni2} - {N} * {x_2}) / ({N}- 1)")
+	print(f"s =  {s}")
+
+	print(f"{G}--> Done !\n{W}")
+	values = {'numeros': numeros, 'N': N, 'soma_ni': soma_ni, 'soma_ni2': soma_ni2, 'media': media, 'x_2': x_2, 's2': s2, 's': s}
 	return values
 
-def pede_frequencias(nums):
-	while True:
-		indexes = []
-		print("\nComeço das Frequências (x): ")
-		for num in nums:
-			freq = int(input('Frequência:'))
-			indexes.append(freq)
-		return indexes
+
 
 def computar_dados_grup(numeros):	
 	N = len(numeros)
-	indexes = pede_frequencias(numeros)
+	indexes = BF.pede_frequencias(numeros)
+
 	xini = calc_xini(indexes, numeros)
 	xini2 = calc_xini(indexes, xini)
+	
+	print(f"{C}---- Calculando as somas ----{W}")
 	soma_ni = round(soma(numeros),2)
 	soma_xini = round(soma(xini),2)
 	soma_xini2 = round(soma(xini2),2)
+	
+	print(f"{C}---- Calculando média ----{W}")
 	media = round(soma_xini / soma_ni, 2)
 	x_2 = round(media**2, 2)
+	print(f"Média =  {soma_xini} / {soma_ni}")
+	print(f"Média² =  {x_2}")
+
+	print(f"{C}---- Calculando Desvio Padrão ----{W}")
 	s2 = round((soma_xini2 - soma_ni * x_2) / (soma_ni-1), 2)
 	s = round(sqrt(s2),2)
+	print(f"s² =  ({soma_xini2} - {soma_ni} * {x_2}) / ({soma_ni}- 1)")
+	print(f"s =  {s}")
+
+	print(f"{G}--> Done !\n{W}")
 	values = {'indexes': indexes,'numeros': numeros, 'soma_ni': soma_ni, 'xini': xini, 'xini2': xini2,
 			  'soma_xini': soma_xini, 'soma_xini2': soma_xini2, 'media': media, 'x_2': x_2, 's2': s2, 's': s}
 	return values
 
 def computar_dados_grup_classe(numeros):
 	N = len(numeros)
-	classes = pedir_classes(numeros)
+	classes = BF.pedir_classes(numeros)
 	#classes = ['2.35,2.55', '2.55,2.75', '2.75,2.95', '2.95,3.15', '3.15,3.35', '3.35,3.55']
 	#classes = [classe.split(',') for classe in classes]
-	xi = calc_pontos_medios(classes)
+	print(f"{C}---- Calculando dados da tabela ----{W}")
+	xi = BF.calc_pontos_medios_classes(classes)
 	xi2 = [x**2 for x in xi]
 	xini = calc_xini(xi, numeros)
 	xi2ni = calc_xini(xi2, numeros)
+
+	print(f"{C}---- Calculando as somas ----{W}")
 	soma_ni = round(soma(numeros),2)
 	soma_xini = round(soma(xini),2)
 	soma_xini2 = round(soma(xi2ni),2)
+	
+	print(f"{C}---- Calculando média ----{W}")
 	media = round(soma_xini / soma_ni, 2)
 	x_2 = round(media**2, 2)
+	print(f"Média =  {soma_xini} / {soma_ni}")
+	print(f"Média² =  {x_2}")
+
+	print(f"{C}---- Calculando Desvio Padrão ----{W}")
 	s2 = round((soma_xini2 - soma_ni * x_2) / (soma_ni-1),2)
 	s = round(sqrt(s2),2)
+
+	print(f"{G}--> Done <--\n{W}")
 	values = {'classes': classes,'numeros': numeros,'xi':xi,'xi2':xi2,'xini':xini,'xi2ni': xi2ni, 
 			  'soma_ni': soma_ni, 'soma_xini': soma_xini, 'soma_xini2': soma_xini2, 
 			  'media': media, 'x_2': x_2, 's2': s2, 's':s}
 	return values
 
+
+#### GRÁFICOS
+
 # Funções de montagem dos gráficos
 # --------------------------------
 def montar_graf_simples(values):
-	header = "      xi    |    xi²   \n"
+	header = "      ni    |    ni²   \n"
 	escopo = header
 	for n in values['numeros']:
 		linha = f"      {n}".ljust(12) + f"|    {n**2}".ljust(10) + "\n"
 		escopo += linha
-	linha_soma = f"\nsoma= {values['soma_xi']}".ljust(13)+ f"|    {values['soma_xi2']}"
+	linha_soma = f"\nsoma= {values['soma_ni']}".ljust(13)+ f"|    {values['soma_ni2']}"
 	escopo += linha_soma
 	escopo += f"\n{C}___________________________{W}\n\n"
 	return escopo
@@ -155,16 +189,16 @@ def montar_graf_grup_classe(values):
 	indx = 0
 	for classe in values['classes']:
 		linha = f"   {classe[0]}|-{classe[1]}".ljust(cels_len[0]) + \
-				f"|   {values['numeros'][indx]}".ljust(cels_len[1]) + \
-				f"|   {values['xi'][indx]}".ljust(cels_len[2]) + \
-				f"|    {values['xi2'][indx]}".ljust(cels_len[3]) + \
-				f"|    {values['xini'][indx]}".ljust(cels_len[4]) + \
-				f"|    {values['xi2ni'][indx]}".ljust(cels_len[5]) + \
+				f"|   {values['numeros'][indx]} ".ljust(cels_len[1]) + \
+				f"|   {values['xi'][indx]}" .ljust(cels_len[2]) + \
+				f"|    {values['xi2'][indx]} ".ljust(cels_len[3]) + \
+				f"|    {values['xini'][indx]} ".ljust(cels_len[4]) + \
+				f"|    {values['xi2ni'][indx]} ".ljust(cels_len[5]) + \
 				"\n"
 		escopo += linha
 		indx += 1
 	linha_soma = f"\nsoma= ".ljust(15)+ \
-				 f"|    {values['soma_ni']}".ljust(9) + \
+				 f"|   {values['soma_ni']}".ljust(9) + \
 				 f"|".ljust(9) + \
 				 f"|".ljust(9) + \
 				 f"|    {values['soma_xini']}".ljust(11) + \
@@ -173,37 +207,6 @@ def montar_graf_grup_classe(values):
 	escopo += "\n________________________________\n\n"
 	return escopo
 
-# Funções Agrupadas com Classe
-# ----------------------------
-def valida_classe(classe):
-	split_classes = classe.split(',')
-	if len(split_classes) != 2:
-		raise ValueError
-	float(split_classes[0])
-	float(split_classes[1])
-
-def pedir_classes(nums):
-	pede_cl = True
-	classes = []
-	while pede_cl:
-		try:
-			for n in nums:
-				classe = input("Classe: ")
-				valida_classe(classe)
-				classe = classe.split(',')
-				classes.append(classe)
-			pede_cl = False
-		except ValueError:
-			print(f"{R}Valor incorreto pra classe ! {Y}Valores válidos: (X,Y){W}")
-	
-	return classes
-
-def calc_pontos_medios(classes):
-	pontos_medios = []
-	for classe in classes:
-		pm = (float(classe[0])+float(classe[1]))/2
-		pontos_medios.append(pm)
-	return pontos_medios
 
 # --------- Main Functions ----------
 
@@ -226,11 +229,11 @@ def run_simples_amostra():
 	print(f"\n{C} ------  GRÁFICO  ------{W}")
 	print(montar_graf_simples(values))
 
-	print(f"Soma xi = {values['soma_xi']}")
+	print(f"Soma xi = {values['soma_ni']}")
 	print(f"N = {values['N']}")
 	print(f"Média = {values['media']}")
-	print(f"x_2 = ({values['soma_xi']} / {values['N']})²  = {values['x_2']}")
-	print(f"s² =  ({values['soma_xi2']} - {values['N']} * {values['x_2']}) / {values['N']-1}  = {values['s2']}")
+	print(f"x_2 = ({values['soma_ni']} / {values['N']})²  = {values['x_2']}")
+	print(f"s² =  ({values['soma_ni2']} - {values['N']} * {values['x_2']}) / {values['N']-1}  = {values['s2']}")
 	print(f"s = {values['s']}")
 
 def run_grupo_amostra():
