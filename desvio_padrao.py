@@ -69,22 +69,20 @@ def computar_dados(numeros):
 	values = {'numeros': numeros, 'N': N, 'soma_xi': soma_xi, 'soma_xi2': soma_xi2, 'media': media, 'x_2': x_2, 's2': s2, 's': s}
 	return values
 
-def pede_frequencias(len_nums):
+def pede_frequencias(nums):
 	while True:
-		start = int(input('\nComeço das Frequências (x): '))
-		end = int(input('Final das Sequências: '))+1
-		indexes = range(start, end)
-		if len_nums != len(indexes):
-			print(f"{R}Sequência Inválida !  Verifique novamente as sequências da tabela{W}\n")
-		else:
-			return indexes
+		indexes = []
+		print("\nComeço das Frequências (x): ")
+		for num in nums:
+			freq = int(input('Frequência:'))
+			indexes.append(freq)
+		return indexes
 
 def computar_dados_grup(numeros):	
 	N = len(numeros)
-	indexes = pede_frequencias(N)
+	indexes = pede_frequencias(numeros)
 	xini = calc_xini(indexes, numeros)
 	xini2 = calc_xini(indexes, xini)
-	import pdb; pdb.set_trace()
 	soma_ni = round(soma(numeros),2)
 	soma_xini = round(soma(xini),2)
 	soma_xini2 = round(soma(xini2),2)
