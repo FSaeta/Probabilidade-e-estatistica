@@ -17,5 +17,30 @@ def pede_numeros():
             print(f"{G}-- Done !{W}")
             return numeros
 
+def pede_frequencias(nums):
+	while True:
+		indexes = []
+		print("\nComeço das Frequências (x): ")
+		for num in nums:
+			freq = int(input('Frequência:'))
+			indexes.append(freq)
+		return indexes
+
+def pedir_classes(nums):
+	pede_cl = True
+	classes = []
+	while pede_cl:
+		try:
+			for n in nums:
+				classe = input("Classe: ")
+				valida_classe(classe)
+				classe = classe.split(',')
+				classes.append(classe)
+			pede_cl = False
+		except ValueError:
+			print(f"{R}Valor incorreto pra classe ! {Y}Valores válidos: (X,Y){W}")
+	
+	return classes
+
 if __name__ == '__main__':
     pede_numeros()
