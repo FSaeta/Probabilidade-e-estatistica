@@ -42,5 +42,19 @@ def pedir_classes(nums):
 	
 	return classes
 
+def valida_classe(classe):
+	split_classes = classe.split(',')
+	if len(split_classes) != 2:
+		raise ValueError
+	float(split_classes[0])
+	float(split_classes[1])
+
+def calc_pontos_medios_classes(classes):
+	pontos_medios = []
+	for classe in classes:
+		pm = (float(classe[0])+float(classe[1]))/2
+		pontos_medios.append(pm)
+	return pontos_medios
+
 if __name__ == '__main__':
     pede_numeros()
