@@ -101,11 +101,11 @@ def calc_moda_classe(values=False):
 
 		print(f"{C}---- Calculando moda ----{W}")
 		moda = values['li'] + (d1/(d1+d2))*values['h']
-		print(f"Moda = {values['li']} + ({d1} / ({d1} + {d2}))*{values['h']}")
+		print(f"Moda = {values['li']} + ({d1} / ({d1} + {d2}))*{values['h']}  = {moda}")
 		
 		print(f"{G}--> Done !\n{W}")
 
-	return moda
+	return round(moda, 2)
 
 def calc_mediana_classe(values=False):
 	"""mediana = li + ((N/2 - fant) / f) * h"""
@@ -120,13 +120,13 @@ def calc_mediana_classe(values=False):
 	else:
 		classe_modal = values['classe_modal']
 
-		facant = values['facant']
+		fac = values['fac'][classe_modal['indice']]
 
 		print(f"{C}---- Calculando mediana ----{W}")
-		mediana = values['li'] + ((values['soma_ni']/2 - facant)/values['classe_modal']['valor'])*values['h']
-		print(f"Mediana = {values['li']} + (({values['soma_ni']}/ 2 - {facant})/ {values['classe_modal']['valor']})* {values['h']}  = {mediana}")
+		mediana = values['li'] + ((values['soma_ni']/2 - fac)/values['fpos'])*values['h']
+		print(f"Mediana = {values['li']} + (({values['soma_ni']}/ 2 - {fac})/ {values['fpos']})* {values['h']}  = {mediana}")
 		
-	return mediana
+	return round(mediana, 2)
 
 
 def calc_valores_mmm_classes(values):
@@ -150,7 +150,7 @@ def calc_valores_mmm_classes(values):
 		fant = classe_modal['valor']
 	
 	try:
-		fpos = values['numeros'][classe_modal['indice']-1]
+		fpos = values['numeros'][classe_modal['indice']+1]
 	except IndexError:
 		fpos = classe_modal['valor']
 
