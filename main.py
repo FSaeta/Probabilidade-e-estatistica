@@ -6,10 +6,13 @@ from menu import R,G,C,Y,W, limpar_tela
 
 import sys
 
+def limpar_tela():
+    print(f"{Y}-->{W}")
+
 # ---- Main functions
 def mudar_id(novo_id):
     global id_menu, menus
-    menu.define_contexto(menus, id_menu, novo_id)
+    # menu.define_contexto(menus, id_menu, novo_id)
     id_menu = novo_id
     return id_menu
 
