@@ -120,7 +120,7 @@ def calc_mediana_classe(values=False):
 	else:
 		classe_modal = values['classe_modal']
 
-		facant = values['fac'][classe_modal['indice']-1]
+		facant = values['facant']
 
 		print(f"{C}---- Calculando mediana ----{W}")
 		mediana = values['li'] + ((values['soma_ni']/2 - facant)/values['classe_modal']['valor'])*values['h']
@@ -136,11 +136,12 @@ def calc_valores_mmm_classes(values):
 	print(f"{C}---- Obtendo Valores: classe_modal, li, h, fant, fpos, fi, fac ----\n{W}")
 	
 	print(f"{C}---- Obtendo classe modal ----{W}")
+	import pdb; pdb.set_trace()
 	classe_modal = CF.calc_classe_modal(values)
 	h = CF.calc_altura_classe(classes)
 	li = float(classes[classe_modal['indice']-1][1])
 	print(f"Altura da classe: {h}")
-	print(f"Limite inferior: {h}")
+	print(f"Limite inferior: {li}")
 
 	print(f"{C}---- Obtendo Frequencias ----{W}")
 	fmod = classe_modal['valor']
@@ -148,14 +149,16 @@ def calc_valores_mmm_classes(values):
 	fpos = values['numeros'][classe_modal['indice']+1]
 	fi = CF.calc_frequencia_relativa(values)
 	fac = CF.calc_frequencia_acumulada(values)
+	facant = fac[classe_modal['indice']-1]
 	print(f"fmod = {fmod}")
 	print(f"fant: {fant}")
 	print(f"fpos: {fpos}")
 	print(f"fi: {classe_modal['valor']}")
 	print(f"fac: {fac[classe_modal['indice']]}")
+	print(f"facant: {fac[classe_modal['indice']-1]}")
 
 	values.update({'classe_modal': classe_modal,
-		'li':li, 'fmod':fmod, 'fant':fant, 'fpos':fpos, 'fi':fi, 'fac':fac, 'h':h
+		'li':li, 'fmod':fmod, 'fant':fant, 'fpos':fpos, 'fi':fi, 'fac':fac, 'facant':facant, 'h':h
 	})
 
 	return values

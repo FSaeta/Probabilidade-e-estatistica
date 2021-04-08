@@ -39,7 +39,8 @@ def pedir_classes(nums):
 			pede_cl = False
 		except ValueError:
 			print(f"{R}Valor incorreto pra classe ! {Y}Valores válidos: (X,Y){W}")
-	
+			classes.clear()
+
 	return classes
 
 def valida_classe(classe):

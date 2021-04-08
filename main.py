@@ -41,7 +41,8 @@ menus.update({
         op_dict= {0: [(sys.exit,[])],
                 1: [(mudar_id,[1]), (limpar_tela,[]) ],
                 2: [(mudar_id,[2]), (limpar_tela,[]) ],
-                3: [(mudar_id,[3]), (limpar_tela,[]) ]
+                3: [(mudar_id,[3]), (limpar_tela,[]) ],
+                9: [(mudar_id,[9]), (limpar_tela,[]) ]
     }),
     1: menu.Menu(
         nome="MODA MÉDIA MEDIANA",
@@ -73,10 +74,11 @@ menus.update({
     9: menu.Menu(
         nome="MENU GERAL",
         id=9,
-        msg= MSG.montagem_geral,
+        msg= MSG.opcoes,
         op_dict= {0: [(mudar_id,[0])],
-                1: [],
-                2: []
+                1: [(mudar_id,[91])],
+                2: [(mudar_id,[92])],
+                3: [(mudar_id,[93])]
     })
 })
 # Menus Secundários
@@ -133,31 +135,58 @@ menus.update({
     })
 })
 
-# Box Splot
+# Box Plot
 menus.update({
     31: menu.Menu(
         nome="Box Splot - EXECUTAR NÃO AGRUPADOS",
-        id=21,
+        id=31,
         msg= MSG.executar,
-        op_dict= {0: [(mudar_id,[2])],
-                1: [(MF.run_dp_simples,[]), (mudar_id,[0])]
+        op_dict= {0: [(mudar_id,[3])],
+                1: [(MF.run_bp_simples,[]), (mudar_id,[0])]
     }),
     32: menu.Menu(
         nome="Box Splot - EXECUTAR AGRUPADOS SEM CLASSES",
-        id=22,
+        id=32,
         msg= MSG.executar,
-        op_dict= {0: [(mudar_id,[2])],
+        op_dict= {0: [(mudar_id,[3])],
                 1: [(MF.run_dp_grupo,[]), (mudar_id,[0])]
     }),
     33: menu.Menu(
         nome="Box Splot - EXECUTAR AGRUPADOS POR CLASSES",
-        id=23,
+        id=33,
         msg= MSG.executar,
-        op_dict= {0: [(mudar_id,[1])],
+        op_dict= {0: [(mudar_id,[3])],
                 1: [(MF.run_dp_grupo_classe,[]), (mudar_id,[0])]
     })
 })
 
+# Geral
+menus.update({
+    91: menu.Menu(
+        nome="GERAL - EXECUTAR NÃO AGRUPADOS",
+        id=91,
+        msg= MSG.montagem_geral,
+        op_dict= {0: [(mudar_id,[3])],
+                1: [(MF.run_geral_simples,[False]), (mudar_id,[0])],
+                2: [(MF.run_geral_simples,[]), (mudar_id,[0])]
+    }),
+    92: menu.Menu(
+        nome="GERAL - EXECUTAR AGRUPADOS SEM CLASSES",
+        id=92,
+        msg= MSG.montagem_geral,
+        op_dict= {0: [(mudar_id,[3])],
+                1: [(MF.run_geral_grupo,[False]), (mudar_id,[0])],
+                2: [(MF.run_geral_grupo,[]), (mudar_id,[0])]
+    }),
+    93: menu.Menu(
+        nome="GERAL - EXECUTAR AGRUPADOS POR CLASSES",
+        id=93,
+        msg= MSG.montagem_geral,
+        op_dict= {0: [(mudar_id,[3])],
+                1: [(MF.run_geral_classe,[False]), (mudar_id,[0])],
+                2: [(MF.run_geral_classe,[]), (mudar_id,[0])]
+    })
+})
 
 # Main
 if __name__ == '__main__':
