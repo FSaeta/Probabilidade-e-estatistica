@@ -1,3 +1,5 @@
+from menu import R, C, Y, W, G
+
 def calc_classe_modal(values):
 	maior_freq = {'classe': [], 'valor': 0, 'indice': 0}
 	indx = 0
@@ -30,3 +32,9 @@ def calc_frequencia_acumulada(values):
 		fac += num
 		freqs.append(fac)
 	return freqs
+
+def calc_coef_variacao(values):
+	print(f"{C}---- Calculando Coeficiente de Variação ----{W}")
+	coef = values['s'] / values['media']
+	print(f"Coeficiente de variação: {values['s']} / {values['media']}  = {coef}")
+	return round(coef, 2)

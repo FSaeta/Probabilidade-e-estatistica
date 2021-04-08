@@ -35,7 +35,7 @@ def mudar_id(novo_id):
 	id_menu = novo_id
 	return id_menu
 
-def calc_quartil(nums, tp_q):	
+def calc_quartil(nums, tp_q):
 	len_nums = len(nums)
 	nums.sort()
 	if tp_q != 2:
@@ -57,60 +57,89 @@ def calc_quartil(nums, tp_q):
 			ind1 = int((indice1+1)/2)
 			if tp_q == 1:
 				indice1 = indice1-ind1
+				quartil = nums[indice1]
 			elif tp_q == 3:
 				indice1 = indice1+ind1
-			quartil = nums[indice1-1]
+				quartil = nums[indice1-2]
 		
 	else:
 		quartil = mmm.calc_mediana(nums)
 	return quartil
 
+def calc_quartis_simples(nums):
+	print(f"{C}---- Calculando os Quartis ----{W}")
+	q1 = calc_quartil(nums, 1)
+	q2 = calc_quartil(nums, 2)
+	q3 = calc_quartil(nums, 3)
+	return {'q1':q1,'q2':q2,'q3':q3}
+
+
 def calc_quartil_classes(values):
+	print(f"{C}---- Calculando os Quartis ----{W}")
 
-	quartil1 = 3.35 + (((25*values['soma_ni'])/100 - 15)*0.2) / 6
+	quartil1 = values['li'] + (((25*values['soma_ni'])/100 - values['facant'])*values['h']) / values['fmod']
 	quartil2 = values['mediana']
-	quartil3 = 3.35 + (((75*values['soma_ni'])/100 - 15)*0.2) / 6
+	quartil3 = values['li'] + (((75*values['soma_ni'])/100 - values['facant'])*values['h']) / values['fmod']
 
-	return quartil1, quartil2, quartil3
+
+	print(f"quartil1 = {values['li']} + (((25*{values['soma_ni']})/100 - {values['facant']})*{values['h']}) / {values['fmod']}  = {quartil1}")
+	print(f"quartil2 = {values['mediana']}")
+	print(f"quartil3 = {values['li']} + (((75*{values['soma_ni']})/100 - {values['facant']})*{values['h']}) / {values['fmod']}  = {quartil3}")
+
+	return {'q1':round(quartil1, 2), 'q2':round(quartil2, 2), 'q3':round(quartil3, 2)}
 
 def calc_percentil(values, perc):
-	print(values)
 	percentil = (values['N']*perc)/100
+	print(f"percentil = ({values['N']}*{perc}) / 100")
 	return percentil
 
 def calc_percentil_classe(values, perc):
-	percentil = 3.35 + (((perc*values['soma_ni'])/100 - 15)*0.2) / 6
+	percentil = values['li'] + (((perc*values['soma_ni'])/100 - values['facant'])*values['h']) / values['fmod']
+	print(f"percentil = {values['li']} + ((({perc}*{values['soma_ni']})/100 - {values['facant']})*{values['h']}) / {values['fmod']}")
 	return percentil
 
 def calc_assimetria(values):
+	print(f"{C}---- Calculando a Assimetria ----{W}")
 	assimetria = (values['media']-values['moda'][0])/values['s']
 
-	string = f"( {values['media']} - {values['moda']} ) / {values['s']}"
+	string = f"Assimetria = ( {values['media']} - {values['moda'][0]} ) / {values['s']}  = {assimetria}"
 	print(string)
 
 	return round(assimetria, 2)
 
 def calc_assimetria_classe(values):
+	print(f"{C}---- Calculando a Assimetria ----{W}")
 	assimetria = (values['media']-values['moda'])/values['s']
 
-	string = f"( {values['media']} - {values['moda']} ) / {values['s']}"
+	string = f"Assimetria = ({values['media']} - {values['moda']} ) / {values['s']}  = {assimetria}"
 	print(string)
 
 	return round(assimetria, 2)
 
 def calc_curtose(values):
+	print(f"{C}---- Calculando a Curtose ----{W}")
 	amplitude = (values['q3'] - values['q1'])
 	curtose = amplitude / 2*(calc_percentil(values, 90) - calc_percentil(values, 10))
+
+	print(f"Amplitude = {values['q3']} - {values['q1']}  = {amplitude}")
+	print(f"Curtose = {amplitude} / 2*({calc_percentil(values, 90)} - {calc_percentil(values, 10)})  = {curtose}")
 	return curtose
 
 def calc_curtose_classe(values):
+	print(f"{C}---- Calculando a Curtose ----{W}")
 	amplitude = (values['q3'] - values['q1'])
+
 	soma = 0
+	res_str = ""
+	print(f"pontos médios = {values['xi']}")
 	for pm in values['xi']:
 		res = (pm-values['media'])**4
+		res_str += f"({pm}-{values['media']})^4 + "
 		soma += res
 	m4 = soma / values['soma_ni']
+	print(f"M4 = {res_str} / {values['soma_ni']}")
 	curtose = m4 / (values['s']**4)
+	print(f"Curtose = M^4 / s^4  =  {m4} / {values['s']**4}")
 	return curtose
 
 def run_simples():
@@ -136,34 +165,34 @@ def run_simples():
 	print(f"Mediana: {mediana}")
 	print(f"Moda: {moda}")
 	print("-------")
-	print(f"Quartil : {quartil1}")
-	print(f"Quartil : {quartil2}")
-	print(f"Quartil : {quartil3}")
+	print(f"1º Quartil : {quartil1}")
+	print(f"2º Quartil : {quartil2}")
+	print(f"3º Quartil : {quartil3}")
 	print(f"Assimetria: {assimetria}")
 	print(f"Curtose: {curtose}")
 
 
 def run_classe():
 	numeros = BF.pede_numeros()
-	numeros.sort()
-	values_dp = desvio_padrao.computar_dados_grup_classe(numeros)
+	values = desvio_padrao.computar_dados_grup_classe(numeros)
 
-	mediana = mmm.calc_mediana_classe(values_dp)
-	moda = mmm.calc_moda_classe(values_dp)
+	values.update(mmm.calc_valores_mmm_classes(values))
+	mediana = mmm.calc_mediana_classe(values)
+	moda = mmm.calc_moda_classe(values)
 
-	values_dp.update({'mediana': mediana, 'moda': moda})
-	quartil1, quartil2, quartil3 = calc_quartil_classes(values_dp)
-	values_dp.update({'q1': quartil1, 'q3': quartil3})
-	assimetria = calc_assimetria_classe(values_dp)
-	curtose = calc_curtose_classe(values_dp)
+	values.update({'mediana': mediana, 'moda': moda})
+	quartil1, quartil2, quartil3 = calc_quartil_classes(values)
+	values.update({'q1': quartil1, 'q3': quartil3})
+	assimetria = calc_assimetria_classe(values)
+	curtose = calc_curtose_classe(values)
 
-	print(f"Média: {values_dp['media']}")
+	print(f"Média: {values['media']}")
 	print(f"Mediana: {mediana}")
 	print(f"Moda: {moda}")
 	print("-------")
-	print(f"Quartil : {quartil1}")
-	print(f"Quartil : {quartil2}")
-	print(f"Quartil : {quartil3}")
+	print(f"1º Quartil : {quartil1}")
+	print(f"2º Quartil : {quartil2}")
+	print(f"3º Quartil : {quartil3}")
 	print(f"Assimetria : {assimetria}")
 	print(f"Curtose : {curtose}")
 	
