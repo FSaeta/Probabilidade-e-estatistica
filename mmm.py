@@ -1,6 +1,6 @@
 import menu
 import basic_funcs as BF
-import compute_funcs as CF
+import computes_funcs as CF
 from menu import R,G,Y,C,W
 
 menu = f"""-----------------------------------------
@@ -108,7 +108,7 @@ def calc_moda_classe(values=False):
 	return moda
 
 def calc_mediana_classe(values=False):
-	""""""
+	"""mediana = li + ((N/2 - fant) / f) * h"""
 	if not values:
 		print("__________________\nSolicitação da mediana para classe:")
 		li = float(input("Digite o li: "))
@@ -153,12 +153,6 @@ def calc_valores_mmm_classes(values):
 	print(f"fpos: {fpos}")
 	print(f"fi: {classe_modal['valor']}")
 	print(f"fac: {fac[classe_modal['indice']]}")
-
-	print(f"{C}---- Obtendo D1 e D2 ----{W}")
-	d1 = fmod - fant
-	d2 = fmod - fpos
-	print(f"D1 = {fmod} - {fant}")
-	print(f"D2 = {fmod} - {fpos}")
 
 	values.update({'classe_modal': classe_modal,
 		'li':li, 'fmod':fmod, 'fant':fant, 'fpos':fpos, 'fi':fi, 'fac':fac, 'h':h
