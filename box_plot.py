@@ -148,8 +148,8 @@ def run_classe():
 	numeros.sort()
 	values_dp = desvio_padrao.computar_dados_grup_classe(numeros)
 
-	mediana = mmm.calc_mediana_classe()
-	moda = mmm.calc_moda_classe()
+	mediana = mmm.calc_mediana_classe(values_dp)
+	moda = mmm.calc_moda_classe(values_dp)
 
 	values_dp.update({'mediana': mediana, 'moda': moda})
 	quartil1, quartil2, quartil3 = calc_quartil_classes(values_dp)

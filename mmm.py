@@ -1,5 +1,6 @@
 import menu
 import basic_funcs as BF
+import compute_funcs as CF
 from menu import R,G,Y,C,W
 
 menu = f"""-----------------------------------------
@@ -19,6 +20,20 @@ def calc_mmm_simples(nums):
 	mediana = calc_mediana(nums)
 	print(f"{C}---- Calculando moda ----{W}")
 	moda = calc_moda(nums)
+
+	return {'media': media, 'mediana': mediana ,'moda': moda}
+
+def calc_mmm_grup_classe(values):
+	"""Função para calculo de dados não agrupados"""
+
+	print(f"{C}---- Calculando média ----{W}")
+	media = values['media']
+	print(f"{C}-------- Calculando Valores Adicionais --------{W}")
+	values = calc_valores_mmm_classes(values)
+	print(f"{C}-------- Calculando Moda --------{W}")
+	moda = calc_moda_classe(values)
+	print(f"{C}-------- Calculando Mediana --------{W}")
+	mediana = calc_mediana_classe(values)
 
 	return {'media': media, 'mediana': mediana ,'moda': moda}
 
@@ -65,23 +80,91 @@ def calc_moda(nums):
 	return maiores
 
 def calc_moda_classe(values=False):
-	print("__________________\nSolicitação da moda para classe:")
-	li = float(input("Digite o li: "))
-	h = float(input("Digite o h: "))
-	d1 = float(input("Digite o d1: "))
-	d2 = float(input("Digite o d2: "))
-	moda = li + (d1/(d1+d2)*h)
+	"""moda = li + (D1 / (D1 + D2)) * h"""
+	if not values:
+		print("__________________\nSolicitação da moda para classe:")
+		li = float(input("Digite o li: "))
+		h = float(input("Digite o h: "))
+		d1 = float(input("Digite o d1: "))
+		d2 = float(input("Digite o d2: "))
+		moda = li + (d1/(d1+d2))*h
+	else:
+		classes = values['classes']
+
+		classe_modal = values['classe_modal']
+
+		print(f"{C}---- Obtendo D1 e D2 ----{W}")
+		d1 = values['fmod'] - values['fant']
+		d2 = values['fmod'] - values['fpos']
+		print(f"D1 = {values['fmod']} - {values['fant']}")
+		print(f"D2 = {values['fmod']} - {values['fpos']}")
+
+		print(f"{C}---- Calculando moda ----{W}")
+		moda = values['li'] + (d1/(d1+d2))*values['h']
+		print(f"Moda = {values['li']} + ({d1} / ({d1} + {d2}))*{values['h']}")
+		
+		print(f"{G}--> Done !\n{W}")
+
 	return moda
 
 def calc_mediana_classe(values=False):
-	print("__________________\nSolicitação da mediana para classe:")
-	li = float(input("Digite o li: "))
-	h = float(input("Digite o h: "))
-	f = float(input("Digite o f: "))
-	fant = float(input("Digite o fant: "))
-	n = float(input("Digite o n: "))
-	mediana = li + ((n/2 - fant)/f)*h
+	""""""
+	if not values:
+		print("__________________\nSolicitação da mediana para classe:")
+		li = float(input("Digite o li: "))
+		h = float(input("Digite o h: "))
+		f = float(input("Digite o f: "))
+		fant = float(input("Digite o fant: "))
+		n = float(input("Digite o n: "))
+		mediana = li + ((n/2 - fant)/f)*h
+	else:
+		classe_modal = values['classe_modal']
+
+		facant = values['fac'][classe_modal['indice']-1]
+
+		print(f"{C}---- Calculando mediana ----{W}")
+		mediana = values['li'] + ((values['soma_ni']/2 - facant)/values['classe_modal']['valor'])*values['h']
+		print(f"Mediana = {values['li']} + (({values['soma_ni']}/ 2 - {facant})/ {values['classe_modal']['valor']})* {values['h']}")
+		
 	return mediana
+
+
+def calc_valores_mmm_classes(values):
+	classes = values['classes']
+	
+	print(f"{G}----------------------------------------------------------{W}")
+	print(f"{C}---- Obtendo Valores: classe_modal, li, h, fant, fpos, fi, fac ----\n{W}")
+	
+	print(f"{C}---- Obtendo classe modal ----{W}")
+	classe_modal = CF.calc_classe_modal(values)
+	h = CF.calc_altura_classe(classes)
+	li = float(classes[classe_modal['indice']-1][1])
+	print(f"Altura da classe: {h}")
+	print(f"Limite inferior: {h}")
+
+	print(f"{C}---- Obtendo Frequencias ----{W}")
+	fmod = classe_modal['valor']
+	fant = values['numeros'][classe_modal['indice']-1]
+	fpos = values['numeros'][classe_modal['indice']+1]
+	fi = CF.calc_frequencia_relativa(values)
+	fac = CF.calc_frequencia_acumulada(values)
+	print(f"fmod = {fmod}")
+	print(f"fant: {fant}")
+	print(f"fpos: {fpos}")
+	print(f"fi: {classe_modal['valor']}")
+	print(f"fac: {fac[classe_modal['indice']]}")
+
+	print(f"{C}---- Obtendo D1 e D2 ----{W}")
+	d1 = fmod - fant
+	d2 = fmod - fpos
+	print(f"D1 = {fmod} - {fant}")
+	print(f"D2 = {fmod} - {fpos}")
+
+	values.update({'classe_modal': classe_modal,
+		'li':li, 'fmod':fmod, 'fant':fant, 'fpos':fpos, 'fi':fi, 'fac':fac, 'h':h
+	})
+
+	return values
 
 if __name__ == '__main__':
 	pede = True
