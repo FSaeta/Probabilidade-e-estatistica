@@ -12,6 +12,18 @@ def calc_classe_modal(values):
 	print(f"Classe Modal = {maior_freq['classe']}\nFrequencia Modal = {maior_freq['valor']}\nIndice = {maior_freq['indice']}")
 	return maior_freq
 
+def calc_frequencia_modal(values):
+	maior_freq = {'moda': 0,'valor': 0, 'indice': 0}
+	indx = 0
+	for indice in values['indexes']:
+		valor = values['numeros'][indx]
+		if valor >= maior_freq['valor']:
+			maior_freq.update({'moda': indice, 'valor': valor, 'indice': indx})
+		indx += 1
+
+	print(f"Moda = {maior_freq['moda']}\nFrequencia Modal = {maior_freq['valor']}\nIndice = {maior_freq['indice']}")
+	return maior_freq
+
 def calc_altura_classe(classes):
 	"""h = altura das classes"""
 	classe = classes[0]

@@ -23,8 +23,22 @@ def calc_mmm_simples(nums):
 
 	return {'media': media, 'mediana': mediana ,'moda': moda}
 
+def calc_mmm_grupo(values):
+	"""Função para calculo de dados agrupados sem classe"""
+
+	print(f"{C}---- Calculando média ----{W}")
+	media = values['media']
+	print(f"{C}-------- Calculando Valores Adicionais --------{W}")
+	values = calc_valores_mmm_grupo(values)
+	print(f"{C}-------- Calculando Moda --------{W}")
+	moda = values['classe_modal']['moda']
+	print(f"{C}-------- Calculando Mediana --------{W}")
+	mediana = calc_mediana_grupo(values)
+
+	return {'media': media, 'mediana': mediana ,'moda': moda}
+
 def calc_mmm_grup_classe(values):
-	"""Função para calculo de dados não agrupados"""
+	"""Função para calculo de dados agrupados por classe"""
 
 	print(f"{C}---- Calculando média ----{W}")
 	media = values['media']
@@ -107,6 +121,19 @@ def calc_moda_classe(values=False):
 
 	return round(moda, 2)
 
+def calc_mediana_grupo(values=False):
+	"""mediana = li + ((N/2 - fant) / f) * h"""
+	if values:
+		classe_modal = values['classe_modal']
+
+		fac = values['fac'][classe_modal['indice']]
+
+		print(f"{C}---- Calculando mediana ----{W}")
+		mediana = calc_mediana(values['indexes'])
+		print(f"Mediana = {mediana}")
+		
+	return round(mediana, 2)
+
 def calc_mediana_classe(values=False):
 	"""mediana = li + ((N/2 - fant) / f) * h"""
 	if not values:
@@ -127,6 +154,43 @@ def calc_mediana_classe(values=False):
 		print(f"Mediana = {values['li']} + (({values['soma_ni']}/ 2 - {fac})/ {values['fpos']})* {values['h']}  = {mediana}")
 		
 	return round(mediana, 2)
+
+def calc_valores_mmm_grupo(values):
+	indexes = values['indexes']
+	
+	print(f"{G}----------------------------------------------------------{W}")
+	print(f"{C}---- Obtendo Valores: classe_modal, fant, fpos, fi, fac ----\n{W}")
+	
+	print(f"{C}---- Obtendo Frequencia modal ----{W}")
+	classe_modal = CF.calc_frequencia_modal(values)
+
+	print(f"{C}---- Obtendo Frequencias ----{W}")
+	fmod = classe_modal['valor']
+	try:
+		fant = values['numeros'][classe_modal['indice']-1]
+	except IndexError:
+		fant = classe_modal['valor']
+	
+	try:
+		fpos = values['numeros'][classe_modal['indice']+1]
+	except IndexError:
+		fpos = classe_modal['valor']
+
+	fi = CF.calc_frequencia_relativa(values)
+	fac = CF.calc_frequencia_acumulada(values)
+	facant = fac[classe_modal['indice']-1]
+	print(f"fmod = {fmod}")
+	print(f"fant: {fant}")
+	print(f"fpos: {fpos}")
+	print(f"fi: {classe_modal['valor']}")
+	print(f"fac: {fac[classe_modal['indice']]}")
+	print(f"facant: {fac[classe_modal['indice']-1]}")
+
+	values.update({'classe_modal': classe_modal,
+		'fmod':fmod, 'fant':fant, 'fpos':fpos, 'fi':fi, 'fac':fac, 'facant':facant
+	})
+
+	return values
 
 
 def calc_valores_mmm_classes(values):

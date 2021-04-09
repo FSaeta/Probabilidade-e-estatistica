@@ -74,7 +74,7 @@ def calc_quartis_simples(nums):
 	return {'q1':q1,'q2':q2,'q3':q3}
 
 
-def calc_quartil_classes(values):
+def calc_quartil_grupos(values):
 	print(f"{C}---- Calculando os Quartis ----{W}")
 
 	quartil1 = values['li'] + (((25*values['soma_ni'])/100 - values['facant'])*values['h']) / values['fmod']
@@ -181,7 +181,7 @@ def run_classe():
 	moda = mmm.calc_moda_classe(values)
 
 	values.update({'mediana': mediana, 'moda': moda})
-	quartil1, quartil2, quartil3 = calc_quartil_classes(values)
+	quartil1, quartil2, quartil3 = calc_quartil_grupos(values)
 	values.update({'q1': quartil1, 'q3': quartil3})
 	assimetria = calc_assimetria_classe(values)
 	curtose = calc_curtose_classe(values)
