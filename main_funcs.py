@@ -124,8 +124,8 @@ def run_bp_simples():
 # Geral
 
 def run_geral_simples(graf=True):
-	#numeros = BF.pede_numeros()
-	numeros = [66.24, 65.06, 65.52, 65.57, 65.63, 65.67, 65.71, 65.73, 65.92, 65.93, 65.93, 65.93, 66.02, 66.28, 66.32, 66.33, 66.34, 66.45, 66.45, 66.7]
+	numeros = BF.pede_numeros()
+	# numeros = [66.24, 65.06, 65.52, 65.57, 65.63, 65.67, 65.71, 65.73, 65.92, 65.93, 65.93, 65.93, 66.02, 66.28, 66.32, 66.33, 66.34, 66.45, 66.45, 66.7]
 	# Média Moda Mediana
 	values = mmm.calc_mmm_simples(numeros)
 	# Desvio Padrão Variância
