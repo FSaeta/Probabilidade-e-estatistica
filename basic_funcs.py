@@ -13,6 +13,8 @@ def pede_numeros():
             numeros.append(numero)
         except ValueError:
             print(f"{R}Número digitado incorretamente{W}")
+            if numero == '':
+                print(f"{C}Pressione CTRL+C se quiser continuar.{W}")
         except KeyboardInterrupt:
             print(f"{G}-- Done !{W}")
             return numeros
@@ -27,28 +29,43 @@ def pede_frequencias(nums):
 		return indexes
 
 def pedir_classes(nums):
-	pede_cl = True
-	classes = []
-	while pede_cl:
-		try:
-			for n in nums:
-				classe = input("Classe: ")
-				valida_classe(classe)
-				classe = classe.split(',')
-				classes.append(classe)
-			pede_cl = False
-		except ValueError:
-			print(f"{R}Valor incorreto pra classe ! {Y}Valores válidos: (X,Y){W}")
-			classes.clear()
+    """ Método para pedir as classes no caso de uma execução de conjuntos agrupados
+    por classes.
 
-	return classes
+    Args:
+        nums (list): lista de números que foram solicitados
+
+    Returns:
+        list: lista de classes indexadas de forma mapeada com os 'nums'
+    """
+    classes = []
+    while len(classes) < len(nums):
+        try:
+            classe = input("Classe: ")
+            valida_classe(classe)
+            classe = classe.split(',')
+            classes.append(classe)
+        except ValueError:
+            print(f"{R}Valor incorreto pra classe ! {Y}Valores válidos: (X,Y){W}")
+            print(f"Classes:{G}{classes}{W}")
+    return classes
 
 def valida_classe(classe):
-	split_classes = classe.split(',')
-	if len(split_classes) != 2:
-		raise ValueError
-	float(split_classes[0])
-	float(split_classes[1])
+    """ Método utilizado para validar a classe digitada. Valida se a classe
+    possui duas posições e se cada uma das posições pode ser transformada em
+    float.
+
+    Args:
+        classe (string): classe inserida pelo usuário "x, y"
+
+    Raises:
+        ValueError: Se a classe não estiver no padrão correto
+    """
+    split_classes = classe.split(',')
+    if len(split_classes) != 2:
+        raise ValueError
+    float(split_classes[0])
+    float(split_classes[1])
 
 def calc_pontos_medios_classes(classes):
 	pontos_medios = []
